@@ -103,7 +103,7 @@ FairLens highlights this disparity, explains the possible cause, and suggests wa
 - Niharika C  
 - Elna Susan Kuriakose
 - Rithika Sankar
-- Harinarayanan S
+- Harinarayan S
 
 ---
 
