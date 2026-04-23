@@ -15,6 +15,7 @@ def calculate_bias_metrics(df: pd.DataFrame, target_col: str, sensitive_col: str
     selection_rates = df.groupby(sensitive_col)[target_col].mean().to_dict()
     selection_rates = {str(k): round(float(v), 4) for k, v in selection_rates.items()}
 
+
     values = list(selection_rates.values())
 
     # Demographic Parity Difference: max rate - min rate

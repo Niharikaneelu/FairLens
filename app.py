@@ -1,56 +1,61 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import pandas as pd
 import os
 import google.generativeai as genai
-
+import traceback
 from config import GEMINI_API_KEY
+
 genai.configure(api_key=GEMINI_API_KEY)
 
 app = Flask(__name__)
 
-# Home route
+# store last result for chatbot
+latest_result = {}
+
+# ---------------- HOME ----------------
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# Analyze route
+
+# ---------------- ANALYZE ----------------
 @app.route('/analyze', methods=['POST'])
 def analyze():
+    print("ANALYZE ROUTE HIT")
+    global latest_result
+
     try:
         file = request.files['file']
         target = request.form['target']
         sensitive = request.form['sensitive']
 
-        # Save uploaded file temporarily
+        if not file.filename.endswith('.csv'):
+            return render_template('index.html', error="Only CSV files allowed")
+
         os.makedirs("uploads", exist_ok=True)
         filepath = os.path.join("uploads", file.filename)
         file.save(filepath)
 
-        # Read CSV
         df = pd.read_csv(filepath)
 
-        # Validate columns
         if target not in df.columns or sensitive not in df.columns:
-            return render_template('index.html', error="Error: Column names not found in dataset.")
+            return render_template('index.html', error="Column not found")
 
-        # Ensure target is numeric (0/1)
         df[target] = pd.to_numeric(df[target], errors='coerce')
-
-        # Drop missing values
         df = df.dropna(subset=[target, sensitive])
 
-        # Calculate selection rates per group
+        # ✅ selection rate
         result = df.groupby(sensitive)[target].mean()
-        result_dict = {str(k): round(float(v) * 100, 1) for k, v in result.items()}
 
-        # Calculate bias gap (for 2+ groups)
-        if len(result) >= 2:
-            values = list(result)
-            bias_gap = round(abs(values[0] - values[1]) * 100, 1)
-        else:
-            bias_gap = 0
+        result_dict = {
+            str(k): round(float(v) * 100, 2)
+            for k, v in result.items()
+        }
 
-        # Bias decision
+        # ✅ FIXED bias logic
+        values = list(result)
+        bias_gap = round((max(values) - min(values)) * 100, 2) if len(values) > 1 else 0
+
         if bias_gap > 20:
             bias_message = "⚠️ Potential bias detected"
             bias_class = "alert-warning"
@@ -58,21 +63,25 @@ def analyze():
             bias_message = "✅ No significant bias detected"
             bias_class = "alert-ok"
 
-        # Generate AI explanation using Gemini
+        # AI explanation
         prompt = f"""
-        A bias analysis was run on a dataset.
-        Selection rates by group ({sensitive}): {result_dict}
+        Bias analysis results:
+        {result_dict}
         Bias gap: {bias_gap}%
 
-        Explain in simple terms whether there is bias and why it matters.
-        Also suggest 2 concrete ways to fix it.
-        Keep it concise (3-4 sentences).
+        Explain simply and suggest fixes.
         """
 
-        # FIX: Use gemini-1.5-flash instead of deprecated gemini-pro
         model = genai.GenerativeModel("gemini-2.5-flash")
         response = model.generate_content(prompt)
         explanation = response.text
+
+        # store for chatbot
+        latest_result = {
+            "result": result_dict,
+            "bias_gap": bias_gap,
+            "message": bias_message
+        }
 
         return render_template(
             "result.html",
@@ -85,10 +94,45 @@ def analyze():
         )
 
     except Exception as e:
-        return render_template('index.html', error=f"Error: {str(e)}")
+        print("ANALYZE ERROR:", e)
+        traceback.print_exc()
+        return render_template('index.html', error=str(e))
 
 
+# ---------------- CHATBOT ----------------
+@app.route('/chat', methods=['POST'])
+def chat():
+    try:
+        if not latest_result:
+            return jsonify({"reply": "Please run an analysis first."})
+
+        data = request.json
+        user_question = data.get("question")
+
+        prompt = f"""
+        You are FairLens AI assistant.
+
+        Current Analysis:
+        {latest_result}
+
+        User Question:
+        {user_question}
+
+        Answer clearly in simple language.
+        """
+
+        model = genai.GenerativeModel("gemini-2.5-flash")
+        response = model.generate_content(prompt)
+
+        return jsonify({"reply": response.text})
+
+    except Exception as e:
+        print("CHAT ERROR:", e)
+        traceback.print_exc()
+        return jsonify({"reply": str(e)})
+
+
+# ---------------- RUN ----------------
 if __name__ == '__main__':
-    if not os.path.exists("uploads"):
-        os.makedirs("uploads")
+    os.makedirs("uploads", exist_ok=True)
     app.run(debug=True)
