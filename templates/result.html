@@ -1,16 +1,136 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FairLens - Results</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Bias Report</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui;
+      background: #f5f7fb;
+      color: #1e293b;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: auto;
+      padding: 0 2rem;
+    }
+
+    .navbar {
+      background: #fff;
+      border-bottom: 1px solid #e9eef3;
+      padding: 1rem;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .main-content {
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .metrics-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 2rem;
+    }
+
+    .metric-card {
+      background: white;
+      padding: 20px;
+      border-radius: 1rem;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .gap {
+      color: #3b82f6;
+    }
+
+    .alert {
+      background: #ffe5e5;
+      padding: 1rem;
+      margin: 2rem;
+      border-radius: 1rem;
+    }
+
+    .red {
+      color: red;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      text-align: center;
+      background: #fff;
+    }
+  </style>
 </head>
+
 <body>
-  <main class="container">
-    <h1>Analysis Results</h1>
-    <p>Bias metrics and AI explanation will appear here.</p>
-    <a href="{{ url_for('index') }}">Back to upload</a>
+
+  <div class="navbar">
+    <div class="container nav-inner">
+      <div class="logo">FairLens</div>
+      <div>Methodology | Support</div>
+    </div>
+  </div>
+
+  <main class="main-content">
+
+    <h1>Bias Report</h1>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <p>Male</p>
+        <p class="metric-value">72%</p>
+      </div>
+
+      <div class="metric-card">
+        <p>Female</p>
+        <p class="metric-value">58%</p>
+      </div>
+
+      <div class="metric-card">
+        <p>Bias Gap</p>
+        <p class="metric-value gap">14%</p>
+      </div>
+    </div>
+
+    <div class="alert">
+      <p class="red">⚠️ Bias Detected</p>
+      <p>There is a significant difference between groups.</p>
+    </div>
+
+    <button onclick="window.location.href='index.html'">Upload Another File</button>
+
   </main>
+
+  <footer class="footer">
+    <p>© FairLens</p>
+  </footer>
+
 </body>
+
 </html>
