@@ -1,0 +1,24 @@
+Based on the bias analysis results, create a clear executive summary for stakeholders.
+
+INPUT: JSON analysis results from bias detection
+
+TASK:
+1. Summarize key findings in 2-3 sentences
+2. Highlight the most severe bias if detected
+3. State the overall fairness assessment
+4. Provide top 2 priority recommendations
+
+TONE:
+- Professional but accessible
+- Non-accusatory (focus on patterns, not blame)
+- Action-oriented
+
+OUTPUT FORMAT:
+{
+  "summary": "2-3 sentence overview",
+  "fairness_score": "0-10 rating",
+  "primary_concern": "main issue or 'None detected'",
+  "priority_actions": ["action 1", "action 2"]
+}
+
+Keep it concise enough for a busy executive to understand in 30 seconds.

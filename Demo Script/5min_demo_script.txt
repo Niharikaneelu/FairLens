@@ -1,0 +1,97 @@
+FAIRLENS 5-MINUTE DEMO SCRIPT
+=============================
+
+PRESENTER: Member 3 (AI + Data + Testing)
+DURATION: 5 minutes
+
+---
+
+[0:00 - 0:30] INTRO
+"Hi, I'm [Name] from Team FairLens. I'll demonstrate how our AI-powered bias 
+detection system identifies unfair patterns in hiring, lending, and admissions decisions."
+
+[SCREEN: Show FairLens homepage]
+
+---
+
+[0:30 - 1:30] PROBLEM SETUP
+"Let me show you a real-world scenario. Here's an HR hiring dataset with 60 candidates.
+At first glance, it looks like a normal hiring process. But let's dig deeper."
+
+[SCREEN: Show hr_hiring_demo.csv in table view]
+"Notice we have candidate names, gender, age, education, experience, and hiring decisions."
+
+---
+
+[1:30 - 2:30] RUN ANALYSIS
+"Now I'll upload this to FairLens and run the bias detection."
+
+[SCREEN: Upload file, click Analyze button]
+
+"The system analyzes the data using two methods:
+1. Statistical analysis with pandas to find patterns
+2. Gemini AI to interpret and explain the findings"
+
+[SCREEN: Show loading/processing]
+
+---
+
+[2:30 - 3:30] REVEAL RESULTS
+"Here are the results. FairLens detected gender bias with 85% confidence."
+
+[SCREEN: Show bias results page with JSON output]
+
+"Key findings:
+- Male candidates: 100% hired (30 out of 30)
+- Female candidates: 0% hired (0 out of 30)
+- Despite similar qualifications across genders
+
+The AI explains: 'There is a statistically significant disparity in hiring rates 
+between male and female candidates. This pattern suggests systematic gender bias.'"
+
+---
+
+[3:30 - 4:00] SHOW OTHER DATASETS
+"FairLens works across multiple domains. Let me quickly show loan approvals."
+
+[SCREEN: Switch to loan_approval_demo.csv results]
+
+"Similar patterns detected - gender and name-based biases in loan approvals."
+
+---
+
+[4:00 - 4:30] RECOMMENDATIONS
+"The system doesn't just detect bias - it provides actionable fixes."
+
+[SCREEN: Show recommendations section]
+
+"Recommendations include:
+- Implement blind resume review
+- Standardize evaluation criteria
+- Diverse hiring panels
+- Regular bias audits"
+
+---
+
+[4:30 - 5:00] CLOSE
+"In just 5 minutes, FairLens identified hidden biases that could lead to:
+- Legal liability
+- Lost talent
+- Unfair outcomes
+
+This is the power of AI-powered fairness auditing. Thank you."
+
+[SCREEN: FairLens logo/team slide]
+
+---
+
+BACKUP TALKING POINTS:
+
+If asked about accuracy:
+"We validate against statistical baselines and test on known bias patterns."
+
+If asked about false positives:
+"Our system provides confidence scores and requires statistical significance."
+
+If asked about data privacy:
+"All processing is done securely, and data is not stored after analysis."

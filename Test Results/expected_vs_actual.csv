@@ -1,0 +1,11 @@
+Test Case,Expected Bias Type,Expected Finding,Actual Output,Match (Y/N),Notes
+HR Hiring - Gender,Gender,Male hiring rate > Female hiring rate,,,Run after API ready
+HR Hiring - Name,Ethnic,Western names favored over others,,,Run after API ready
+Loan Approval - Gender,Gender,Male approval rate > Female approval rate,,,Run after API ready
+Loan Approval - Name,Ethnic,Western names higher approval,,,Run after API ready
+College Admissions - Legacy,Legacy,Legacy students accepted more,,,Run after API ready
+College Admissions - Gender,Gender,Male acceptance > Female acceptance,,,Run after API ready
+College Admissions - Name,Ethnic,Non-ethnic names favored,,,Run after API ready
+Edge Case - All Equal,None,No bias detected,,,Create additional test
+Edge Case - Missing Data,Robustness,Handles nulls gracefully,,,Create additional test
+Edge Case - Small Sample,Robustness,No false positives on small data,,,Create additional test

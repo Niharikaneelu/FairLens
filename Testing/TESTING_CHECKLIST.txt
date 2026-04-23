@@ -1,0 +1,61 @@
+FAIRLENS TESTING CHECKLIST
+==========================
+
+Member 3: AI + Data + Testing Deliverables
+
+PROMPTS (Complete ✓)
+--------------------
+[✓] system_prompt_final.txt    - Main bias detection prompt
+[✓] summary_prompt.txt         - Executive summary generation
+[✓] fix_prompt.txt             - Remediation recommendations
+[✓] chat_prompt.txt            - Interactive Q&A responses
+
+DATASETS (Complete ✓)
+---------------------
+[✓] hr_hiring_demo.csv         - 60 candidates, gender bias pattern
+[✓] loan_approval_demo.csv     - 50 applicants, gender + name bias
+[✓] college_admissions_demo.csv - 60 applicants, multiple biases
+
+TESTING FILES (Complete ✓)
+--------------------------
+[✓] test_bias_detection.py     - Main testing script
+[✓] expected_outputs.json      - Expected AI results
+[✓] expected_vs_actual.csv     - Validation tracking sheet
+[✓] 5min_demo_script.txt       - Demo presentation script
+
+READY FOR TESTING
+-----------------
+All files created and ready. Wait for Member 1's backend API.
+
+WHEN BACKEND IS READY:
+1. Get API endpoint URL from Member 1
+2. Update API_URL in test_bias_detection.py
+3. Uncomment API call section in the script
+4. Run: python test_bias_detection.py
+5. Capture screenshots of results
+6. Compare actual vs expected outputs
+7. Fill in expected_vs_actual.xlsx
+8. Validate bias detection accuracy
+
+TESTING VALIDATION CRITERIA:
+----------------------------
+✓ HR Dataset: Should detect gender bias (100% male vs 0% female hiring)
+✓ Loan Dataset: Should detect gender + name bias
+✓ College Dataset: Should detect gender + legacy bias
+✓ All datasets: AI explanations should be clear and actionable
+✓ Confidence scores should be >0.8 for clear bias cases
+✓ Recommendations should be specific and implementable
+
+COORDINATION NEEDED:
+--------------------
+→ Member 1: Get API endpoint format and URL
+→ Member 2: Ensure UI displays JSON results properly
+→ Member 4: Share demo video timeline, provide test results
+
+TIMELINE:
+---------
+Day 1: Create prompts and datasets (DONE)
+Day 2: Test with backend API (pending Member 1)
+Day 3: Validate results, capture screenshots
+Day 4: Support Member 4's demo video
+Day 5: Final validation and submission

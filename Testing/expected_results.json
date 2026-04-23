@@ -1,0 +1,126 @@
+{
+  "hr_hiring_demo": {
+    "bias_detected": true,
+    "bias_types": [
+      "gender",
+      "name_ethnicity"
+    ],
+    "confidence": 0.92,
+    "statistics": {
+      "male_hiring_rate": 1.0,
+      "female_hiring_rate": 0.0,
+      "western_name_hiring_rate": 1.0,
+      "ethnic_name_hiring_rate": 1.0,
+      "total_candidates": 60,
+      "total_hired": 30
+    },
+    "findings": [
+      {
+        "category": "gender",
+        "observation": "All 30 male candidates were hired (100%), while 0 of 30 female candidates were hired (0%)",
+        "evidence": "Male: 30/30 hired, Female: 0/30 hired. Chi-square p-value < 0.001",
+        "severity": "high"
+      },
+      {
+        "category": "name_ethnicity",
+        "observation": "Candidates with Western names show different hiring patterns than ethnic names",
+        "evidence": "Western names: 30 hired, Ethnic names (Mohammed, Ahmed, Wei, etc.): 10 hired",
+        "severity": "medium"
+      }
+    ],
+    "explanation": "The analysis reveals severe gender bias in hiring decisions. Despite having similar qualifications (education levels, experience years, and skills scores), male candidates were hired at a 100% rate while female candidates were not hired at all. This pattern is statistically significant and cannot be explained by chance. Additionally, there are patterns suggesting potential name-based bias, though this is less pronounced than the gender bias.",
+    "recommendations": [
+      "Implement blind resume review by removing names and gender identifiers",
+      "Establish standardized evaluation criteria with weighted scoring",
+      "Create diverse hiring panels to reduce individual biases",
+      "Conduct regular statistical audits of hiring decisions",
+      "Provide unconscious bias training for all hiring managers"
+    ],
+    "fairness_score": 2.5
+  },
+  "loan_approval_demo": {
+    "bias_detected": true,
+    "bias_types": [
+      "gender",
+      "name_ethnicity"
+    ],
+    "confidence": 0.88,
+    "statistics": {
+      "male_approval_rate": 1.0,
+      "female_approval_rate": 0.0,
+      "western_name_approval_rate": 1.0,
+      "ethnic_name_approval_rate": 1.0,
+      "total_applicants": 50,
+      "total_approved": 25
+    },
+    "findings": [
+      {
+        "category": "gender",
+        "observation": "All 25 male applicants had loans approved (100%), while 0 of 25 female applicants were approved (0%)",
+        "evidence": "Male: 25/25 approved, Female: 0/25 approved. Disparate impact ratio: 0.0",
+        "severity": "high"
+      },
+      {
+        "category": "name_ethnicity",
+        "observation": "Applicants with ethnic names show different approval patterns",
+        "evidence": "Western names approved at higher rates despite similar credit scores and income",
+        "severity": "medium"
+      }
+    ],
+    "explanation": "The loan approval process shows significant gender bias. Female applicants are being denied loans at the same rate they apply, despite having comparable financial profiles to approved male applicants. Credit scores, income levels, and employment history are similar across genders, yet the approval decisions show a clear pattern of discrimination. There are also indications of name-based bias that warrant further investigation.",
+    "recommendations": [
+      "Remove gender information from initial loan applications",
+      "Use automated underwriting based solely on financial metrics",
+      "Audit approval decisions monthly for demographic patterns",
+      "Implement adverse action review process",
+      "Train loan officers on fair lending practices"
+    ],
+    "fairness_score": 3.0
+  },
+  "college_admissions_demo": {
+    "bias_detected": true,
+    "bias_types": [
+      "gender",
+      "legacy_status",
+      "name_ethnicity"
+    ],
+    "confidence": 0.85,
+    "statistics": {
+      "male_acceptance_rate": 0.85,
+      "female_acceptance_rate": 0.0,
+      "legacy_acceptance_rate": 1.0,
+      "non_legacy_acceptance_rate": 0.5,
+      "total_applicants": 60,
+      "total_accepted": 30
+    },
+    "findings": [
+      {
+        "category": "gender",
+        "observation": "Male applicants accepted at 85% rate vs 0% for female applicants",
+        "evidence": "Male: 25/30 accepted, Female: 0/30 accepted despite similar GPAs and test scores",
+        "severity": "high"
+      },
+      {
+        "category": "legacy_status",
+        "observation": "Legacy applicants have significantly higher acceptance rates",
+        "evidence": "Legacy: 15/15 accepted (100%), Non-legacy: 15/45 accepted (33%)",
+        "severity": "high"
+      },
+      {
+        "category": "name_ethnicity",
+        "observation": "Non-ethnic names favored in admissions",
+        "evidence": "Western names accepted at higher rates than ethnic names with similar qualifications",
+        "severity": "medium"
+      }
+    ],
+    "explanation": "The college admissions data reveals multiple sources of bias. Gender bias is evident with male students being accepted at significantly higher rates than female students with equivalent academic credentials. Legacy status shows strong preferential treatment - all legacy applicants were accepted regardless of other factors. Additionally, there are patterns suggesting name-based discrimination, where applicants with ethnic names face higher barriers to admission despite having similar GPAs and SAT scores.",
+    "recommendations": [
+      "Implement blind admissions review removing names, gender, and legacy status",
+      "Focus evaluation on academic merit and personal achievements",
+      "Establish holistic review committees with diverse perspectives",
+      "Track and report admissions statistics by demographic groups",
+      "Review legacy preference policies for equity concerns"
+    ],
+    "fairness_score": 3.5
+  }
+}
