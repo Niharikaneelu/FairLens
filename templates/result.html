@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bias Report</title>
+  <title>Bias Report · FairLens</title>
 
   <style>
     * {
@@ -34,6 +34,7 @@
     .nav-inner {
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     .logo {
@@ -46,22 +47,42 @@
       text-align: center;
     }
 
+    .main-content h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .main-content p.subtitle {
+      color: #64748b;
+      margin-bottom: 2rem;
+    }
+
     .metrics-grid {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 20px;
       margin-top: 2rem;
     }
 
     .metric-card {
       background: white;
-      padding: 20px;
+      padding: 20px 30px;
       border-radius: 1rem;
+      min-width: 140px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .metric-card p {
+      color: #64748b;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
     }
 
     .metric-value {
       font-size: 2rem;
       font-weight: bold;
+      color: #1e293b;
     }
 
     .gap {
@@ -69,14 +90,57 @@
     }
 
     .alert {
-      background: #ffe5e5;
-      padding: 1rem;
-      margin: 2rem;
+      padding: 1rem 1.5rem;
+      margin: 2rem auto;
       border-radius: 1rem;
+      max-width: 600px;
+      font-size: 1rem;
     }
 
-    .red {
-      color: red;
+    .alert-warning {
+      background: #ffe5e5;
+      color: #c0392b;
+      border: 1px solid #fca5a5;
+    }
+
+    .alert-ok {
+      background: #e5ffe9;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+
+    .explanation-box {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem 2rem;
+      max-width: 700px;
+      margin: 1.5rem auto;
+      text-align: left;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+      line-height: 1.7;
+      color: #334155;
+    }
+
+    .explanation-box h3 {
+      margin-bottom: 0.75rem;
+      color: #1e293b;
+      font-size: 1rem;
+    }
+
+    .btn-back {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .btn-back:hover {
+      background: #2563eb;
     }
 
     .footer {
@@ -84,6 +148,8 @@
       padding: 1rem;
       text-align: center;
       background: #fff;
+      font-size: 0.85rem;
+      color: #94a3b8;
     }
   </style>
 </head>
@@ -98,33 +164,43 @@
   </div>
 
   <main class="main-content">
+    <div class="container">
 
-    <h1>Bias Report</h1>
+      <h1>Bias Report</h1>
+      <p class="subtitle">Analysis by <strong>{{ sensitive }}</strong> column</p>
 
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <p>Male</p>
-        <p class="metric-value">72%</p>
+      <!-- FIX: Real data from Flask via Jinja2 template variables -->
+      <div class="metrics-grid">
+        {% for group, rate in result.items() %}
+        <div class="metric-card">
+          <p>{{ group }}</p>
+          <p class="metric-value">{{ rate }}%</p>
+        </div>
+        {% endfor %}
+
+        <div class="metric-card">
+          <p>Bias Gap</p>
+          <p class="metric-value gap">{{ bias_gap }}%</p>
+        </div>
       </div>
 
-      <div class="metric-card">
-        <p>Female</p>
-        <p class="metric-value">58%</p>
+      <!-- FIX: Dynamic bias alert using class from Flask -->
+      <div class="alert {{ bias_class }}">
+        <strong>{{ bias }}</strong>
       </div>
 
-      <div class="metric-card">
-        <p>Bias Gap</p>
-        <p class="metric-value gap">14%</p>
+      <!-- FIX: AI explanation from Gemini rendered here -->
+      {% if explanation %}
+      <div class="explanation-box">
+        <h3>🧠 AI Explanation</h3>
+        <p>{{ explanation }}</p>
       </div>
+      {% endif %}
+
+      <!-- FIX: Link back to Flask home route, not static file -->
+      <button class="btn-back" onclick="window.location.href='/'">Upload Another File</button>
+
     </div>
-
-    <div class="alert">
-      <p class="red">⚠️ Bias Detected</p>
-      <p>There is a significant difference between groups.</p>
-    </div>
-
-    <button onclick="window.location.href='index.html'">Upload Another File</button>
-
   </main>
 
   <footer class="footer">

@@ -1,4 +1,19 @@
+# Environment variables — never commit your API keys!
 .env
+
+# Virtual environment — install locally, don't commit
+venv/
+env/
+.venv/
+
+# Uploaded files — user data shouldn't be in the repo
+uploads/
+
+# Python cache
 __pycache__/
 *.pyc
-uploads/
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db

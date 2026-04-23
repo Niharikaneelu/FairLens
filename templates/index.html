@@ -7,7 +7,6 @@
   <title>FairLens · Bias Detection Dashboard</title>
 
   <style>
-    /* ---- KEEP ALL YOUR ORIGINAL CSS ---- */
     * {
       margin: 0;
       padding: 0;
@@ -35,6 +34,7 @@
     .nav-inner {
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     .logo {
@@ -51,28 +51,82 @@
       margin-bottom: 2rem;
     }
 
+    .hero-center h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
     .upload-card {
       background: #fff;
       border-radius: 2rem;
       padding: 2rem;
       max-width: 600px;
       margin: auto;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     }
 
     .dropzone {
       border: 2px dashed #cbdde9;
+      border-radius: 1rem;
       padding: 2rem;
       text-align: center;
       cursor: pointer;
+      margin-bottom: 1rem;
+      transition: background 0.2s;
+    }
+
+    .dropzone:hover {
+      background: #f0f7ff;
+    }
+
+    .dropzone p {
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+
+    .field-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .field-row input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .field-row input:focus {
+      outline: none;
+      border-color: #3b82f6;
     }
 
     .btn-primary {
       background: #3b82f6;
       color: white;
       border: none;
-      padding: 10px;
+      padding: 12px;
       width: 100%;
-      margin-top: 15px;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+    }
+
+    .error-box {
+      background: #ffe5e5;
+      color: #c0392b;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
     }
 
     .steps-grid {
@@ -84,8 +138,10 @@
 
     .step {
       background: white;
-      padding: 1rem;
+      padding: 1rem 2rem;
       border-radius: 1rem;
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
     }
 
     .footer {
@@ -93,6 +149,8 @@
       padding: 1rem;
       text-align: center;
       background: #fff;
+      font-size: 0.85rem;
+      color: #94a3b8;
     }
   </style>
 </head>
@@ -114,23 +172,37 @@
         <p>Upload your dataset to detect bias in decisions.</p>
       </div>
 
-      <form>
+      <!-- FIX: form now POSTs to Flask /analyze with correct enctype -->
+      <form action="/analyze" method="POST" enctype="multipart/form-data">
         <div class="upload-card">
 
-          <div class="dropzone" onclick="fileInput.click()">
-            <p>Drag & drop CSV file</p>
-            <input type="file" id="fileInput" style="display:none">
+          {% if error %}
+          <div class="error-box">{{ error }}</div>
+          {% endif %}
+
+          <div class="dropzone" onclick="document.getElementById('fileInput').click()">
+            <p>📂 Drag &amp; drop a CSV file, or click to browse</p>
+            <p id="filename" style="color:#3b82f6; font-size:0.9rem;"></p>
+            <!-- FIX: name="file" so Flask can read it via request.files['file'] -->
+            <input type="file" id="fileInput" name="file" accept=".csv" style="display:none" required
+              onchange="showName(this)">
           </div>
 
-          <button type="button" class="btn-primary" onclick="goToResult()">Analyze Dataset</button>
+          <div class="field-row">
+            <!-- FIX: name attributes added so Flask can read via request.form -->
+            <input type="text" name="target" placeholder="Target column (e.g. hired)" required>
+            <input type="text" name="sensitive" placeholder="Sensitive column (e.g. gender)" required>
+          </div>
+
+          <button type="submit" class="btn-primary">Analyze Dataset</button>
 
         </div>
       </form>
 
       <div class="steps-grid">
-        <div class="step">Upload</div>
-        <div class="step">Process</div>
-        <div class="step">Act</div>
+        <div class="step">📤 Upload</div>
+        <div class="step">⚙️ Process</div>
+        <div class="step">📊 Act</div>
       </div>
 
     </div>
@@ -141,8 +213,9 @@
   </footer>
 
   <script>
-    function goToResult() {
-      window.location.href = "result.html";
+    function showName(input) {
+      const label = document.getElementById('filename');
+      label.textContent = input.files[0] ? '✅ ' + input.files[0].name : '';
     }
   </script>
 
