@@ -81,19 +81,19 @@ def validate_bias_detection():
     test_cases = [
         {
             "name": "HR Hiring (Gender Bias Expected)",
-            "file": "Datasets/hr_hiring_demo.csv",
+            "file": "hr_hiring_demo.csv",
             "expected_bias": ["gender"],
             "description": "Males hired at higher rate than females with similar qualifications"
         },
         {
             "name": "Loan Approval (Gender + Name Bias Expected)",
-            "file": "Datasets/loan_approval_demo.csv",
+            "file": "loan_approval_demo.csv",
             "expected_bias": ["gender", "name"],
             "description": "Males and Western names approved more often"
         },
         {
             "name": "College Admissions (Multiple Biases)",
-            "file": "Datasets/college_admissions_demo.csv",
+            "file": "college_admissions_demo.csv",
             "expected_bias": ["gender", "legacy", "name"],
             "description": "Legacy status, gender, and ethnic names affect acceptance"
         }
