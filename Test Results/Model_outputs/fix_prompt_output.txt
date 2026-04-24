@@ -1,0 +1,26 @@
+{
+  "bias_detected": true,
+  "bias_types": ["Gender bias"],
+  "confidence": 0.95,
+  "findings": [
+    {
+      "category": "gender",
+      "observation": "Significant disparity in hiring rates favoring male applicants despite identical performance metrics.",
+      "evidence": "Male selection rate is 74.2% vs. female selection rate of 44.5%. The 'Impact Ratio' is 0.60, which falls significantly below the 0.80 threshold (Four-Fifths Rule) used to identify adverse impact.",
+      "severity": "high"
+    },
+    {
+      "category": "other",
+      "observation": "Disconnect between merit-based scores and final hiring outcomes.",
+      "evidence": "Both groups maintain identical average technical scores (72/100) and interview scores (68/100), yet males are hired at a rate 1.66 times higher than females.",
+      "severity": "high"
+    }
+  ],
+  "explanation": "The data indicates a clear gender bias in the hiring process. Although male and female candidates are equally qualified based on objective technical and interview scores, men are being hired at a substantially higher rate. Because the qualification scores are balanced, the difference in hiring outcomes cannot be attributed to candidate performance, suggesting that subjective or systemic factors are favoring male applicants.",
+  "recommendations": [
+    "Conduct a 'Blind Screening' audit to remove gender identifiers from applications before they reach hiring managers.",
+    "Review individual interview feedback to determine if 'culture fit' or other subjective criteria are being used to disproportionately disqualify female candidates.",
+    "Implement a standardized, weighted scoring rubric for the final selection phase to ensure decisions align strictly with technical and interview performance.",
+    "Provide unconscious bias training specifically for the decision-makers involved in the final hiring stage."
+  ]
+}

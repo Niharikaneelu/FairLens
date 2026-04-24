@@ -1,0 +1,9 @@
+{
+  "summary": "The analysis identified a significant disparity in hiring outcomes between gender groups, supported by a high confidence level of 91%. While the system functions efficiently, current patterns indicate that female candidates are selected at a substantially lower rate than their male counterparts.",
+  "fairness_score": "3/10",
+  "primary_concern": "High-severity gender bias, specifically a 29.7% gap in hire rates between male and female candidates.",
+  "priority_actions": [
+    "Conduct a root-cause audit of the historical training data to identify and mitigate underlying demographic imbalances.",
+    "Implement post-processing fairness adjustments, such as equalizing odds or adjusting decision thresholds, to normalize selection rates across genders."
+  ]
+}

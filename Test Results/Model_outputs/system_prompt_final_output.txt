@@ -1,0 +1,40 @@
+{
+  "remediation_plan": [
+    {
+      "bias_type": "Gender Bias in Recruitment (Top-of-Funnel & Screening)",
+      "immediate_actions": [
+        "Implement 'Blind Resume Screening' by redacting names, gender-coded pronouns, and graduation years to neutralize affinity bias.",
+        "Replace 'Cultural Fit' criteria with a 'Cultural Contribution' rubric that defines specific, observable behaviors rather than 'gut feelings'."
+      ],
+      "long_term_changes": [
+        "Transition to a 'Skills-First' screening model where the technical test or a work-sample task precedes the resume review.",
+        "Establish a 'Diverse Slate Requirement' ensuring no interview loop proceeds until the candidate pool meets a pre-defined gender diversity threshold."
+      ],
+      "success_metrics": [
+        "Pass-through rate parity (Ratio of female to male applicants moving from Resume Screen to Technical Test).",
+        "Top-of-funnel gender distribution compared to local labor market availability."
+      ]
+    },
+    {
+      "bias_type": "Evaluation Bias (Technical Test & Interview Stages)",
+      "immediate_actions": [
+        "Adopt 'Structured Interviewing' where every candidate for a specific role is asked the same 3-5 questions in the same order with a pre-defined grading scale (1-5).",
+        "Assemble 'Diverse Interview Panels' (minimum of two different genders per panel) to mitigate individual unconscious bias during the final evaluation."
+      ],
+      "long_term_changes": [
+        "Conduct 'Calibration Meetings' after interviews where a neutral moderator (HR or a Lead from a different department) challenges non-evidence-based feedback (e.g., 'not a good fit' or 'seemed hesitant').",
+        "Audit technical test questions for gendered language or contexts that may inadvertently favor male-centric hobbies or industries (e.g., sports-based coding examples)."
+      ],
+      "success_metrics": [
+        "Disparate Impact Ratio (Goal: >0.82 to provide a buffer over the 0.80 EEOC threshold).",
+        "Interview-to-Offer conversion rate parity between gender groups."
+      ]
+    }
+  ],
+  "implementation_timeline": {
+    "week_1": "Deploy resume redaction software/process; finalize standardized rubrics for current open roles; pause 'unstructured' interviews.",
+    "month_1": "Train all hiring managers on structured interviewing and 'objective evidence' feedback; update Technical Test to be graded blindly by a third party.",
+    "quarter_1": "Integrate a real-time DE&I dashboard to track pass-through rates; launch a 'Referral Diversification' program to expand the initial applicant pool."
+  },
+  "estimated_impact": "Projected improvement of Disparate Impact Ratio from 0.60 to 0.85 within two hiring cycles (approx. 6 months), bringing the organization into legal compliance and increasing the qualified female talent headcount."
+}

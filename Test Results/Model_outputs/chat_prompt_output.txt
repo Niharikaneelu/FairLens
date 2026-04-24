@@ -1,0 +1,49 @@
+Zip code is frequently flagged in bias detection because it often acts as a
+proxy variable. Even though "geographic location" is not a protected attribute
+like gender or race, it frequently correlates so closely with protected
+characteristics that a model can inadvertently learn to discriminate based on
+those factors.
+
+Here is the breakdown of why this was flagged in your analysis:
+
+1. The Proxy Effect
+
+In many regions, residential areas are socioeconomically or demographically
+segregated. If the model identifies that candidates from certain zip codes are
+"less successful" according to historical hiring data, it may begin penalizing
+applicants from those areas. Because those areas might have a high concentration
+of specific ethnic or racial groups, the model effectively discriminates against
+those groups without ever "seeing" their race.
+
+2. Redlining and Historical Bias
+
+Zip codes can carry the legacy of historical "redlining" or systemic
+disinvestment. If your training data shows that people from specific zip codes
+weren't hired in the past, the model interprets this as a "low-performance"
+signal rather than a reflection of historical lack of opportunity.
+
+3. Connection to your Disparate Impact Ratio
+
+You noted a Disparate Impact Ratio of 0.60 for gender. While zip code is often a
+proxy for race, it can also be a proxy for gender-linked socioeconomic factors.
+For example:
+
+  - If certain zip codes have longer commute times, and your historical data
+    shows women from those areas left the company more often (perhaps due to
+    disproportionate childcare burdens), the model might flag those zip codes to
+    avoid "turnover."
+  - This results in a "hidden" bias where the model isn't just looking at
+    qualifications—it's using geography to filter out groups it deems "risky."
+
+4. Statistical Significance
+
+In this analysis, zip code likely showed a high mutual information score or
+correlation with the target variable (hiring outcome) while also being highly
+correlated with protected groups. In many jurisdictions, using a proxy variable
+that leads to a Disparate Impact Ratio below 0.80 (your current 0.60 is well
+below this) is considered a "disparate impact" violation, even if the intent
+wasn't biased.
+
+Would you like me to generate a table showing the correlation between zip codes
+and the hiring rates of different demographic groups to see which areas are
+driving this flag?
