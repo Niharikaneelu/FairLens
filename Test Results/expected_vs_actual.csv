@@ -1,11 +1,11 @@
-Test Case,Test Case2,Test Case3,Test Case4,Test Case5,Test Case6
+Test Case,Expected Bias Type,Expected Finding,Actual Output,Match (Y/N),Notes
 HR Hiring - Gender,Gender,Male hiring rate > Female hiring rate,"Male: 100% hired (30/30), Female: 0% hired (0/30)",Y,Data verified - clear gender bias pattern confirmed
 HR Hiring - Name,Ethnic,Western names favored over others,"Western names: 93% hired (28/30), Non-western names: 7% hired (2/30)",Y,ML model confirmed ethnic name bias pattern
 Loan Approval - Gender,Gender,Male approval rate > Female approval rate,"Male: 100% approved (25/25), Female: 0% approved (0/25)",Y,Data verified - clear gender bias pattern confirmed
 Loan Approval - Name,Ethnic,Western names higher approval,"Western names: 92% approved (23/25), Non-western names: 8% approved (2/25)",Y,ML model confirmed ethnic name bias in loan approvals
 College Admissions - Legacy,Legacy,Legacy students accepted more,"Legacy: 90% accepted (27/30), Non-legacy: 33% accepted (10/30)",Y,ML model confirmed legacy preference bias pattern
 College Admissions - Gender,Gender,Male acceptance > Female acceptance,"Male: 100% accepted (30/30), Female: 0% accepted (0/30)",Y,Data verified - clear gender bias pattern confirmed
-College Admissions - Name,Ethnic,Non-ethnic names favored,Non-ethnic names: 91% accepted (27/30) vs ethnic names: 10% accepted (3/30),Y,ML model confirmed ethnic name bias in admissions
+College Admissions - Name,Ethnic,Non-ethnic names favored,"Non-ethnic names: 91% accepted (27/30) vs ethnic names: 10% accepted (3/30)",Y,ML model confirmed ethnic name bias in admissions
 Edge Case - Small Sample,None,No false positives on small data,No bias detected (10/10 candidates - insufficient data flagged),Y,small_sample.csv tested - model correctly withheld bias judgment
 Edge Case - Missing Data,Robustness,Handles nulls gracefully,Null fields handled gracefully - 28/30 records processed with 2 skipped,Y,missing_data.csv tested - nulls skipped without crash or data corruption
 Edge Case - All Fair,None,No bias detected,No bias detected - approval rates within 2% across all demographic groups,Y,all_fair.csv tested - no false positives on merit-based dataset
