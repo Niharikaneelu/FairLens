@@ -35,6 +35,73 @@ Most existing bias detection tools are **complex and require technical expertise
 
 ---
 
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
+
+### Installation
+
+1. **Clone or navigate to the project directory:**
+   ```bash
+   cd FairLens
+   ```
+
+2. **Create a virtual environment** (recommended):
+   ```bash
+   python -m venv venv
+   ```
+
+3. **Activate the virtual environment:**
+   - **Windows:**
+     ```bash
+     venv\Scripts\activate
+     ```
+   - **Mac/Linux:**
+     ```bash
+     source venv/bin/activate
+     ```
+
+4. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Configuration
+
+5. **Set up your Gemini API key** (optional but recommended for full AI features):
+   - Create a `.env` file in the project root directory
+   - Add your Google Gemini API key:
+     ```
+     GEMINI_API_KEY=your-api-key-here
+     ```
+   - Get your API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+
+   **Note:** If you don't have an API key or quota is exhausted, the app will automatically use built-in explanations and chatbot responses—no setup required.
+
+### Running the Application
+
+6. **Start the Flask server:**
+   ```bash
+   python app.py
+   ```
+
+7. **Open your browser and navigate to:**
+   ```
+   http://localhost:5000
+   ```
+
+8. **Use the application:**
+   - Upload a CSV file with your dataset
+   - Select your target column (e.g., `hired`, `approved`)
+   - Select your sensitive attribute (e.g., `gender`, `age`)
+   - View the bias analysis results
+   - Ask follow-up questions in the chatbot
+   - Download a debiased version of your dataset
+
+---
+
 ## 🧪 Core Methodology  
 
 FairLens detects bias using **statistical fairness metrics**, including:
@@ -53,13 +120,19 @@ These methods provide a **simple and interpretable way** to identify potential b
   Quickly identifies disparities in outcomes across groups  
 
 - 🧠 **AI-Powered Explanations**  
-  Uses Google Gemini to explain results in plain language  
+  Uses Google Gemini to explain results in plain language, with intelligent fallback to built-in explanations when API is unavailable  
+
+- 💬 **Interactive Chatbot**  
+  Ask follow-up questions about bias metrics and get contextual answers powered by AI or local fallback logic  
 
 - 🛠️ **Actionable Fixes**  
-  Suggests improvements such as data balancing and reweighting  
+  Suggests improvements such as data balancing and reweighting; download debiased datasets directly  
 
 - 📊 **Simple Dashboard**  
   Clean and accessible interface for non-technical users  
+
+- 🔄 **Resilient Offline Mode**  
+  Built-in fallback explanations and chatbot responses work even without Gemini API availability  
 
 ---
 
@@ -86,6 +159,37 @@ FairLens highlights this disparity, explains the possible cause, and suggests wa
 - Promotes **ethical and fair decision-making**  
 - Improves **transparency and accountability**  
 - Helps reduce **unintentional discrimination**  
+
+---
+
+## 🛠️ Troubleshooting
+
+### Gemini API Not Working (Getting 429 or "quota exceeded" errors)?
+This is expected behavior and **not a bug**. The app automatically falls back to built-in explanations and chatbot responses. To use AI-powered responses:
+
+1. Check your Google Gemini API quota at [Google Cloud Console](https://console.cloud.google.com/)
+2. Ensure billing is enabled for your project
+3. If quota is exhausted, wait for it to reset or upgrade your plan
+4. Update `GEMINI_API_KEY` in your `.env` file if you're using a different API key
+
+### Virtual Environment Not Activating?
+- Ensure you're in the project directory before activating
+- Try using the full path to the activation script if relative paths don't work
+
+### Port 5000 Already in Use?
+- Modify the last line of `app.py` to use a different port:
+  ```python
+  app.run(debug=True, port=8080)
+  ```
+
+---
+
+## 📊 Sample Data
+
+Sample datasets are included in the `Datasets/` folder for testing:
+- `loan_approval_demo.csv` – Loan approval data with demographic info
+- `college_admissions_demo.csv` – College admissions data
+- `hr_hiring_demo.csv` – HR hiring data
 
 ---
 
