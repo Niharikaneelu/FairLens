@@ -27,9 +27,9 @@
     }
 
     body {
-      background: var(--bg);
+      background: #0F172A;
       background-image: radial-gradient(at 100% 0%, rgba(79, 70, 229, 0.1) 0px, transparent 50%);
-      color: var(--text-main);
+      color: #F8FAFC;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -37,7 +37,7 @@
 
     .navbar {
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding: 1.25rem;
       position: sticky;
       top: 0;
@@ -93,7 +93,7 @@
     }
 
     .subtitle {
-      color: var(--text-muted);
+      color: #94A3B8;
       font-size: 1.1rem;
     }
 
@@ -155,17 +155,27 @@
     }
 
     .metric-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 2rem;
       border-radius: 1.25rem;
       text-align: center;
       backdrop-filter: blur(10px);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      page-break-inside: avoid;
+      break-inside: avoid;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease;
+      cursor: default;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      border-color: rgba(129, 140, 248, 0.4);
     }
 
     .metric-label {
-      color: var(--text-muted);
+      color: #94A3B8;
       font-size: 0.95rem;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -179,18 +189,26 @@
     }
 
     .explanation-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 1.25rem;
       padding: 2.5rem;
       line-height: 1.7;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .explanation-card:hover {
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.18);
     }
 
     .explanation-card h2 {
       margin-bottom: 1.5rem;
       font-size: 1.5rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding-bottom: 0.75rem;
     }
 
@@ -202,24 +220,79 @@
 
     .action-row {
       text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
     }
 
     .btn {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.08);
       color: white;
       text-decoration: none;
-      padding: 0.875rem 2rem;
+      padding: 0.75rem 1.5rem;
       border-radius: 2rem;
       font-weight: 500;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.2s;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: background 0.22s ease, transform 0.22s cubic-bezier(0.4,0,0.2,1), box-shadow 0.22s ease, border-color 0.22s ease;
     }
 
     .btn:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.28);
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .chat-input-wrap {
+      position: relative;
+      margin-top: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .chat-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 0.875rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.3);
+      color: #F8FAFC;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+    }
+
+    .chat-input::placeholder { color: rgba(148, 163, 184, 0.5); }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: #818CF8;
+      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    #chatResponse {
+      margin-top: 1rem;
+      color: #94A3B8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      min-height: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    #chatResponse.active { color: #F8FAFC; }
   </style>
 </head>
 
@@ -228,6 +301,7 @@
   <nav class="navbar">
     <div class="nav-inner">
       <a href="/" class="logo">FairLens</a>
+      <span style="font-size:0.8rem; color:#94A3B8; font-weight:500;">Audit Report</span>
     </div>
   </nav>
 
@@ -248,10 +322,23 @@
     <div class="metrics-grid">
       {% for group, rate in result.items() %}
       <div class="metric-card">
-        <div class="metric-label">{{ group }}</div>
-        <div class="metric-value">{{ "{:.1f}".format(rate * 100) }}%</div>
+        <div class="metric-label">{{ group }} Selection Rate</div>
+        <div class="metric-value">{{ "{:.1f}".format(rate) }}%</div>
       </div>
       {% endfor %}
+      <div class="metric-card">
+        <div class="metric-label">Bias Gap</div>
+        <div class="metric-value">{{ "{:.1f}".format(bias_gap) }}%</div>
+      </div>
+      <div class="metric-card" {% if disparate_impact < 0.8 %}style="border-color: rgba(239, 68, 68, 0.5);"{% endif %}>
+        <div class="metric-label">Disparate Impact</div>
+        <div class="metric-value" {% if disparate_impact < 0.8 %}style="color: #EF4444;"{% endif %}>{{ "{:.2f}".format(disparate_impact) }}</div>
+      </div>
+    </div>
+
+    <div class="explanation-card">
+      <h2>Selection Rates by Group</h2>
+      <canvas id="biasChart"></canvas>
     </div>
 
     <div class="explanation-card">
@@ -260,21 +347,25 @@
     </div>
 
     <div class="explanation-card">
-      <h3>💬 Ask about this result</h3>
-
-      <input type="text" id="question" placeholder="Ask something..."
-        style="width: 100%; padding: 0.75rem; margin-top: 1rem; border-radius: 0.5rem; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: var(--text-main); font-family: inherit; margin-bottom: 1rem;" />
-      <button onclick="sendQuestion()" class="btn" style="padding: 0.5rem 1.5rem;">Ask</button>
-
-      <p id="chatResponse" style="margin-top: 1rem; color: var(--text-muted);"></p>
+      <h3 style="font-size:1.1rem; margin-bottom:1rem; color:#94A3B8; display:flex; align-items:center; gap:0.5rem;">💬 Ask a follow-up question</h3>
+      <div class="chat-input-wrap">
+        <input type="text" id="question" class="chat-input" placeholder="e.g. How can I fix the bias in gender?" />
+      </div>
+      <button onclick="sendQuestion()" class="btn" id="askBtn" style="background:rgba(129,140,248,0.15); border-color:rgba(129,140,248,0.35); color:#A5B4FC;">🤖 Ask AI</button>
+      <p id="chatResponse"></p>
     </div>
 
     <div class="action-row">
-      <a href="/" class="btn">← Analyze Another Dataset</a>
+      <a href="/" class="btn">← New Analysis</a>
+      <button onclick="downloadPDF()" class="btn">📄 Download Report</button>
+      <a href="/mitigate" class="btn" style="background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.35); color: #10B981;">🛠️ Download Debiased Data</a>
     </div>
 
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script id="chartData" type="application/json">{{ result | tojson | safe }}</script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>

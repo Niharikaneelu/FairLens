@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FairLens · AI-Powered Bias Detection</title>
+  <meta name="description" content="Upload your dataset and detect AI bias instantly with FairLens — the no-code fairness auditing tool.">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
@@ -18,27 +19,28 @@
     :root {
       --primary: #6366F1;
       --primary-dark: #4F46E5;
-      --primary-glow: rgba(99, 102, 241, 0.4);
+      --primary-glow: rgba(99, 102, 241, 0.35);
       --bg-dark: #0A0F1C;
       --bg-card: rgba(15, 23, 42, 0.75);
       --text-white: #FFFFFF;
       --text-muted: #94A3B8;
       --border-light: rgba(255, 255, 255, 0.08);
       --success: #10B981;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     body {
       font-family: 'Outfit', sans-serif;
       background: var(--bg-dark);
       background-image:
-        radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+        radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.12) 0%, transparent 55%);
       color: var(--text-white);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* Glow background */
+    /* Animated background glows */
     .bg-glow {
       position: fixed;
       width: 100%;
@@ -52,48 +54,50 @@
       content: '';
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
+      filter: blur(90px);
+      opacity: 0.6;
     }
 
     .bg-glow::before {
-      width: 400px;
-      height: 400px;
+      width: 450px;
+      height: 450px;
       background: rgba(99, 102, 241, 0.3);
-      top: -100px;
-      left: -100px;
-      animation: float 20s infinite;
+      top: -120px;
+      left: -120px;
+      animation: drift 20s ease-in-out infinite;
     }
 
     .bg-glow::after {
-      width: 500px;
-      height: 500px;
+      width: 550px;
+      height: 550px;
       background: rgba(139, 92, 246, 0.2);
-      bottom: -150px;
-      right: -150px;
-      animation: float 25s infinite reverse;
+      bottom: -160px;
+      right: -160px;
+      animation: drift 26s ease-in-out infinite reverse;
     }
 
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translate(0, 0);
-      }
-
-      50% {
-        transform: translate(40px, 30px);
-      }
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(30px, 20px); }
+      66% { transform: translate(-20px, 30px); }
     }
 
     /* Navbar */
     .navbar {
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       background: rgba(10, 15, 28, 0.7);
       border-bottom: 1px solid var(--border-light);
       padding: 1rem 2rem;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .nav-inner {
@@ -101,6 +105,7 @@
       margin: auto;
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     .logo {
@@ -109,13 +114,25 @@
       background: linear-gradient(135deg, #A5B4FC, #C084FC, #F0ABFC);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2rem;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #A5B4FC;
+      letter-spacing: 0.5px;
     }
 
     /* Container */
     .container {
-      max-width: 600px;
+      max-width: 580px;
       margin: auto;
-      padding: 3rem 1.5rem;
+      padding: 4rem 1.5rem 3rem;
       position: relative;
       z-index: 2;
     }
@@ -123,19 +140,39 @@
     /* Hero */
     .hero {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s ease-out 0.1s both;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 1rem;
+      border-radius: 2rem;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      color: #A5B4FC;
+      margin-bottom: 1.25rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
       margin-bottom: 1rem;
-      background: linear-gradient(#fff, #A5B4FC);
+      background: linear-gradient(160deg, #fff 40%, #A5B4FC);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      letter-spacing: -1px;
     }
 
     .hero p {
       color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
     }
 
     /* Card */
@@ -143,28 +180,85 @@
       background: var(--bg-card);
       border: 1px solid var(--border-light);
       border-radius: 2rem;
-      padding: 2rem;
+      padding: 2.25rem;
       backdrop-filter: blur(20px);
-      transition: 0.3s;
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.04) inset;
+      animation: fadeUp 0.6s ease-out 0.2s both;
+      transition: box-shadow var(--transition), transform var(--transition);
     }
 
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-4px);
+      box-shadow: 0 32px 70px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.06) inset;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Dropzone */
     .dropzone {
-      border: 2px dashed rgba(165, 180, 252, 0.4);
-      border-radius: 1.5rem;
-      padding: 2rem;
+      border: 2px dashed rgba(165, 180, 252, 0.3);
+      border-radius: 1.25rem;
+      padding: 2.5rem 2rem;
       text-align: center;
       cursor: pointer;
       margin-bottom: 1.5rem;
+      transition: border-color var(--transition), background var(--transition), transform var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dropzone::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(99,102,241,0.05) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      border-color: rgba(165, 180, 252, 0.7);
+      background: rgba(99, 102, 241, 0.05);
+      transform: scale(1.01);
+    }
+
+    .dropzone:hover::before,
+    .dropzone.dragover::before {
+      opacity: 1;
+    }
+
+    .dropzone-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      display: block;
+      transition: transform var(--transition);
+    }
+
+    .dropzone:hover .dropzone-icon {
+      transform: scale(1.15);
+    }
+
+    .dropzone p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
     }
 
     .file-name {
-      margin-top: 10px;
+      margin-top: 0.75rem;
       color: var(--success);
+      font-weight: 500;
+      font-size: 0.9rem;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Inputs */
@@ -172,87 +266,196 @@
       margin-bottom: 1rem;
     }
 
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.3px;
+    }
+
     .form-control {
       width: 100%;
-      padding: 0.9rem;
-      border-radius: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 0.875rem;
       border: 1px solid var(--border-light);
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.35);
       color: white;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
     }
+
+    .form-control::placeholder { color: rgba(148, 163, 184, 0.5); }
 
     .form-control:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 3px var(--primary-glow);
+      background: rgba(99, 102, 241, 0.05);
     }
 
-    /* Button */
+    /* Submit Button */
     .btn-submit {
       width: 100%;
       padding: 1rem;
-      border-radius: 1rem;
+      border-radius: 0.875rem;
       border: none;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
+      font-family: 'Outfit', sans-serif;
       font-weight: 600;
+      font-size: 1rem;
       cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+      margin-top: 0.5rem;
     }
 
-    .btn-submit:hover {
-      transform: translateY(-2px);
+    .btn-submit::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(255,255,255,0.1), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
     }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(99, 102, 241, 0.55);
+    }
+
+    .btn-submit:hover:not(:disabled)::after { opacity: 1; }
+
+    .btn-submit:active:not(:disabled) { transform: translateY(0); }
+
+    .btn-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* Loading spinner inside button */
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* Error */
     .error {
-      color: #EF4444;
-      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #FCA5A5;
+      padding: 0.85rem 1rem;
+      border-radius: 0.875rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+      animation: fadeUp 0.3s ease-out;
+    }
+
+    /* Stats strip */
+    .stats-strip {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      animation: fadeUp 0.6s ease-out 0.35s both;
+    }
+
+    .stat-item {
       text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #A5B4FC;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
   </style>
 </head>
 
 <body>
-
   <div class="bg-glow"></div>
 
   <nav class="navbar">
     <div class="nav-inner">
       <div class="logo">FairLens</div>
+      <span class="nav-badge">⚖️ AI Fairness Auditor</span>
     </div>
   </nav>
 
   <div class="container">
 
     <div class="hero">
-      <h1>Detect AI Bias</h1>
-      <p>Upload your dataset and analyze fairness instantly</p>
+      <div class="hero-badge">✨ No-Code Bias Detection</div>
+      <h1>Detect AI Bias Instantly</h1>
+      <p>Upload your dataset and get a full fairness audit in seconds — powered by statistical analysis and AI insights.</p>
     </div>
 
     {% if error %}
-    <div class="error">{{ error }}</div>
+    <div class="error">⚠️ {{ error }}</div>
     {% endif %}
 
     <div class="card">
       <form id="auditForm" action="/analyze" method="POST" enctype="multipart/form-data">
 
         <div class="dropzone" onclick="fileInput.click()" id="dropzone">
-          <p>📂 Drag & Drop CSV or Click</p>
+          <span class="dropzone-icon">📂</span>
+          <p>Drag & Drop your CSV or <strong style="color:#A5B4FC;">click to browse</strong></p>
           <div id="fileDisplay" class="file-name"></div>
           <input type="file" id="fileInput" name="file" accept=".csv" hidden required>
         </div>
 
         <div class="form-group">
-          <input type="text" name="target" class="form-control" placeholder="Target Column" required>
+          <label class="form-label">Target Column (e.g. hired, approved)</label>
+          <input type="text" name="target" class="form-control" placeholder="e.g. hired" required>
         </div>
 
         <div class="form-group">
-          <input type="text" name="sensitive" class="form-control" placeholder="Sensitive Column" required>
+          <label class="form-label">Sensitive Column (e.g. gender, race)</label>
+          <input type="text" name="sensitive" class="form-control" placeholder="e.g. gender" required>
         </div>
 
-        <button type="submit" class="btn-submit" id="submitBtn">✨ Analyze</button>
+        <button type="submit" class="btn-submit" id="submitBtn">✨ Run Fairness Audit</button>
 
       </form>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat-item">
+        <div class="stat-value">3+</div>
+        <div class="stat-label">Fairness Metrics</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">AI</div>
+        <div class="stat-label">Powered Insights</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">PDF</div>
+        <div class="stat-label">Exportable Report</div>
+      </div>
     </div>
 
   </div>
@@ -266,29 +469,33 @@
 
     fileInput.addEventListener('change', () => {
       if (fileInput.files.length) {
-        fileDisplay.innerText = "📄 " + fileInput.files[0].name;
+        fileDisplay.innerHTML = "✅ " + fileInput.files[0].name;
       }
     });
 
     // Drag & drop
     dropzone.addEventListener('dragover', e => {
       e.preventDefault();
-      dropzone.style.borderColor = "#6366F1";
+      dropzone.classList.add('dragover');
     });
 
     dropzone.addEventListener('dragleave', () => {
-      dropzone.style.borderColor = "rgba(165,180,252,0.4)";
+      dropzone.classList.remove('dragover');
     });
 
     dropzone.addEventListener('drop', e => {
       e.preventDefault();
-      fileInput.files = e.dataTransfer.files;
-      fileDisplay.innerText = "📄 " + e.dataTransfer.files[0].name;
+      dropzone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length) {
+        fileInput.files = files;
+        fileDisplay.innerHTML = "✅ " + files[0].name;
+      }
     });
 
     // Submit loading state
     form.addEventListener('submit', () => {
-      btn.innerText = "🔍 Analyzing...";
+      btn.innerHTML = '<span class="spinner"></span> Analyzing...';
       btn.disabled = true;
     });
   </script>
