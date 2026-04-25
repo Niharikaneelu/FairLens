@@ -11,27 +11,28 @@ Most existing bias detection tools are **complex and require technical expertise
 
 ---
 
-## 💡 Solution  
-**FairLens** is a **no-code bias auditing tool** that helps non-technical users:
+💡 Solution
 
-- 📂 Upload datasets (CSV)  
-- 📊 Detect bias across demographic groups using statistical fairness metrics  
-- 🧠 Understand results through simple AI-generated explanations  
-- 🛠️ Get actionable suggestions to improve fairness  
+FairLens is a no-code bias auditing tool that enables non-technical users to easily identify and address bias in their data-driven decisions.
+
+📂 Upload datasets (CSV/Excel) with no technical setup
+📊 Automatically detect bias across demographic groups using fairness metrics
+🧠 Understand results through simple, easy-to-read AI explanations
+🛠️ Receive practical suggestions to improve fairness and decision-making 
 
 ---
 
-## ⚙️ How It Works  
+## ⚙️ How It Works
 
-1. Upload dataset  
-2. Select:
-   - Target column (e.g., Selected / Approved)  
-   - Sensitive attribute (e.g., Gender, Age)  
-3. System computes fairness metrics  
-4. View:
-   - Bias detection results  
-   - AI-generated explanation  
-   - Suggested fixes  
+1.Upload your dataset (CSV/Excel)
+2.Select key fields:
+   -> Target column (e.g., Approved / Rejected)
+   -> Sensitive attributes (e.g., Gender, Age)
+3.FairLens analyzes data using fairness metrics
+4.View results:
+   -> Bias insights across groups
+   -> Simple AI explanation
+   -> Actionable recommendations
 
 ---
 
